@@ -1,4 +1,5 @@
 pipeline {
+  //以pod的形式运行作业
   agent {
     kubernetes {
       yamlFile 'build-agent.yaml'
@@ -11,6 +12,7 @@ pipeline {
       parallel {
         stage('Compile') {
           steps {
+            //创建一个maven容器，用来编译，测试和打包，具体信息参见build-agent.yaml
             container('maven') {
               sh 'mvn compile'
             }
